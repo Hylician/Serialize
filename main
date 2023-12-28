@@ -1,5 +1,4 @@
 local config = {}
-local Serialize
 
 local SpecialCharacters = {
 	["\a"] = "\\a", 
@@ -206,7 +205,8 @@ local function formatIndex(idx, scope)
 	return string.format("[%s]", finishedFormat)
 end
 
-return function(tbl, scope, checked)
+local Serializer = {}
+function Serializer.Serialize(tbl, scope, checked)
 	local scope = scope or 0
 	local Serialized = {} -- For performance reasons
 	local scopeTab = string.rep("	", scope)
@@ -273,3 +273,5 @@ return function(tbl, scope, checked)
 		return "{}"
 	end
 end
+
+return Serializer
